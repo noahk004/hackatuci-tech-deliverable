@@ -1,0 +1,10 @@
+.quote-card {
+    padding: 15px;
+    width: 20rem;
+    transition: .2s ease-out;
+}
+
+.quote-card:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}

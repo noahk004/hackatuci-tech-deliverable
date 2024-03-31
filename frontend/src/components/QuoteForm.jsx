@@ -31,7 +31,7 @@ export default function QuoteForm({ active, handleClose }) {
 					</Form>
 				</Modal.Body>
 				<Modal.Footer>
-					<Button variant='secondary'>Close</Button>
+					<Button onClick={handleClose} variant='secondary'>Close</Button>
 					<Button>Submit</Button>
 				</Modal.Footer>
 			</Modal>
