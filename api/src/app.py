@@ -4,10 +4,19 @@ from typing import TypedDict, Optional, Callable
 from fastapi import FastAPI, Form, status
 from fastapi.responses import JSONResponse
 
+from fastapi.middleware.cors import CORSMiddleware
+
 from services.database import JSONDatabase
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['http://localhost:5173'],
+    allow_methods=['GET', 'POST'],
+    allow_headers=["*"],
+    allow_credentials=True
+)
 
 class Quote(TypedDict):
     name: str
