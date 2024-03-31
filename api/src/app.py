@@ -33,7 +33,7 @@ def on_shutdown() -> None:
 
 
 @app.post("/quote")
-def post_message(name: str = Form(), message: str = Form()) -> RedirectResponse:
+def post_message(name: str = Form(...), message: str = Form(...)) -> RedirectResponse:
     """
     Process a user submitting a new quote.
     You should not modify this function except for the return value.
@@ -43,8 +43,16 @@ def post_message(name: str = Form(), message: str = Form()) -> RedirectResponse:
     quote = Quote(name=name, message=message, time=now.isoformat())
     database["quotes"].append(quote)
 
-    # You may modify the return value as needed to support other functionality
+    # The database.close() method does not actually close the database, but merely saves to it.
+    # Though the name of the method suggests that the database should not be closed here, the 
+    # actual functionality merely saves the written data to the database (the json file). Therefore,
+    # it is appropriate to call close() here so that the data is saved to the database even while
+    # the API is running. If I had the option, I would rename this method to database.save().
+    database.close()
+
     return RedirectResponse("/", status.HTTP_303_SEE_OTHER)
 
-
-# TODO: add another API route with a query parameter to retrieve quotes based on max age
+@app.get("/allquotes")
+def retrieve_messages() -> None:
+    """Returns all quotes in a JSON file."""
+    pass
