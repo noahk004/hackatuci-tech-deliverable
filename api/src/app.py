@@ -1,8 +1,8 @@
-from datetime import datetime
-from typing import TypedDict
+from datetime import datetime, timedelta
+from typing import TypedDict, Optional, Callable
 
 from fastapi import FastAPI, Form, status
-from fastapi.responses import RedirectResponse
+from fastapi.responses import JSONResponse
 
 from services.database import JSONDatabase
 
@@ -33,7 +33,7 @@ def on_shutdown() -> None:
 
 
 @app.post("/quote")
-def post_message(name: str = Form(...), message: str = Form(...)) -> RedirectResponse:
+def post_message(name: str = Form(...), message: str = Form(...)) -> JSONResponse:
     """
     Process a user submitting a new quote.
     You should not modify this function except for the return value.
@@ -50,9 +50,34 @@ def post_message(name: str = Form(...), message: str = Form(...)) -> RedirectRes
     # the API is running. If I had the option, I would rename this method to database.save().
     database.close()
 
-    return RedirectResponse("/", status.HTTP_303_SEE_OTHER)
+    return JSONResponse(content={"message": "Quote added successfully"}, status_code=status.HTTP_201_CREATED)
 
 @app.get("/allquotes")
-def retrieve_messages() -> None:
+def retrieve_messages(days_old: Optional[int] = None) -> JSONResponse:
     """Returns all quotes in a JSON file."""
-    pass
+    return_data = database['quotes']
+
+    # Filter the return data if a days_old query parameter is passed.
+    # The way the logic is handled, if days_old is less than 0, then 
+    # simply ignore the query param and return all quotes.
+    if days_old is not None and not days_old < 0:
+        age_is_valid = _get_max_age_function(days_old)
+
+        # Filter by max age in days, then sort from newest to oldest.
+        return_data = list(filter(age_is_valid, return_data))
+        return_data.sort(key = lambda quote: quote['time'])
+
+    return JSONResponse(content=return_data, status_code=status.HTTP_200_OK)
+
+def _get_max_age_function(days_old: int) -> Callable:
+    """
+    Returns a function that returns True if its creation date is within
+    the days_old variable.
+    """
+    def _f(quote: Quote):
+        # Check if quote is within time frame
+        if datetime.fromisoformat(quote['time']) >= datetime.now() - timedelta(days=days_old):
+            return True
+        return False
+    
+    return _f
