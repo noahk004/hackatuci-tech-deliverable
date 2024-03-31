@@ -6,9 +6,16 @@ import Button from 'react-bootstrap/Button'
 
 import './PreviousQuotes.css'
 
-function QuoteCard({ author, quote }) {
+const cardsData = [
+    { id: 1, author: 'Card 1', content: 'Content 1' },
+    { id: 2, author: 'Card 2', content: 'Content 2' },
+    { id: 3, author: 'Card 2', content: 'Content 3' },
+    // Add as many cards as you need
+];
+
+function QuoteCard({ onClick, author, quote }) {
     return (
-        <Card className='quote-card'>
+        <Card className='quote-card' onClick={onClick}>
             <Card.Title>{author}</Card.Title>
             <Card.Text>{quote}</Card.Text>
         </Card>
@@ -32,25 +39,24 @@ function QuoteModal({ active, handleClose, author, quote }) {
 }
 
 export default function PreviousQuotes() {
-    const [quoteActive, setQuoteActive] = useState(true)
-    
-    const showQuote = () => setQuoteActive(true)
-    const hideQuote = () => setQuoteActive(false)
+    const [selectedQuote, setSelectedQuote] = useState(null);
+    const [showQuote, setShowQuote] = useState(false);
+
+    const handleCardClick = (card) => {
+        setSelectedQuote(card)
+        setShowQuote(true)
+    }
 
     return (
         <div className='m-4'>
             <h2 className='display-6 mb-3'>Previous Quotes</h2>
             <div className='d-flex flex-wrap gap-3'>
-                <QuoteCard author='Peter' quote='Zot Zot Zot!' />
-                <QuoteCard author='Peter' quote='Zot Zot Zot!' />
-                <QuoteCard author='Peter' quote='Zot Zot Zot!' />
-                <QuoteCard author='Peter' quote='Zot Zot Zot!' />
-                <QuoteCard author='Peter' quote='Zot Zot Zot!' />
-                <QuoteCard author='Peter' quote='Zot Zot Zot!' />
-                <QuoteCard author='Peter' quote='Zot Zot Zot!' />
+                {cardsData.map(card => (
+                    <QuoteCard key={card.id} onClick={() => handleCardClick(card)} author={card.author} quote={card.content} />
+                ))}
             </div>
-            <QuoteModal active={quoteActive} handleClose={hideQuote} author='Peter' quote='This is truly a very good quote.' />
-            
+            <QuoteModal active={showQuote} handleClose={() => setShowQuote(false)}
+                author={selectedQuote?.author} quote={selectedQuote?.content} />
         </div>
     )
 }
