@@ -2,9 +2,9 @@ import { useState } from 'react'
 
 import "./App.css" 
 
-import Header from './components/Header.jsx'
-import QuoteForm from './components/QuoteForm.jsx'
-import PreviousQuotes from './components/PreviousQuotes.jsx'
+import Header from './components/header/Header.jsx'
+import QuoteForm from './components/quote-form/QuoteForm.jsx'
+import PreviousQuotes from './components/previous-quotes/PreviousQuotes.jsx'
 
 import Button from 'react-bootstrap/Button'
 

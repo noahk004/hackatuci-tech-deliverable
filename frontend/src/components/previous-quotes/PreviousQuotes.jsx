@@ -6,8 +6,6 @@ import Button from 'react-bootstrap/Button'
 
 import './PreviousQuotes.css'
 
-
-
 function QuoteCard({ onClick, name, message }) {
     return (
         <Card className='quote-card' onClick={onClick}>
@@ -49,7 +47,7 @@ export default function PreviousQuotes() {
             .then(res => res.json())
             .then(json => setQuoteData(json))
             .catch(error => console.log(error))
-    })
+    }, [])
 
     return (
         <div className='m-4'>
