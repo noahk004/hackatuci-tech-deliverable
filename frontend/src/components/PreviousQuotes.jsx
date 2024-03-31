@@ -7,28 +7,43 @@ import Button from 'react-bootstrap/Button'
 import './PreviousQuotes.css'
 
 const cardsData = [
-    { id: 1, author: 'Card 1', content: 'Content 1' },
-    { id: 2, author: 'Card 2', content: 'Content 2' },
-    { id: 3, author: 'Card 2', content: 'Content 3' },
-    // Add as many cards as you need
-];
+    {
+        id: 1,
+        name: 'Peter',
+        message: 'This is a really important message.',
+        time: 'Some random time'
+    },
+    {
+        id: 2,
+        name: 'Anteater',
+        message: 'Zot Zot Zot!',
+        time: 'Some random time'
+    },
+    {
+        id: 3,
+        name: 'Joe',
+        message: 'Hello World',
+        time: 'Some random time'
+    }
+]
 
-function QuoteCard({ onClick, author, quote }) {
+
+function QuoteCard({ onClick, name, message }) {
     return (
         <Card className='quote-card' onClick={onClick}>
-            <Card.Title>{author}</Card.Title>
-            <Card.Text>{quote}</Card.Text>
+            <Card.Title>{name}</Card.Title>
+            <Card.Text>{message}</Card.Text>
         </Card>
     )
 }
 
-function QuoteModal({ active, handleClose, author, quote }) {
+function QuoteModal({ active, handleClose, name, message }) {
     return (
         <Modal show={active}>
             <Modal.Body>
                 <div className='blockquote mb-0'>
-                    <p>{quote}</p>
-                    <footer className='blockquote-footer'>{author}</footer>
+                    <p>{message}</p>
+                    <footer className='blockquote-footer'>{name}</footer>
                 </div>
             </Modal.Body>
             <Modal.Footer>
@@ -52,11 +67,11 @@ export default function PreviousQuotes() {
             <h2 className='display-6 mb-3'>Previous Quotes</h2>
             <div className='d-flex flex-wrap gap-3'>
                 {cardsData.map(card => (
-                    <QuoteCard key={card.id} onClick={() => handleCardClick(card)} author={card.author} quote={card.content} />
+                    <QuoteCard key={card.id} onClick={() => handleCardClick(card)} name={card.name} message={card.message} />
                 ))}
             </div>
             <QuoteModal active={showQuote} handleClose={() => setShowQuote(false)}
-                author={selectedQuote?.author} quote={selectedQuote?.content} />
+                name={selectedQuote?.name} message={selectedQuote?.message} />
         </div>
     )
 }
