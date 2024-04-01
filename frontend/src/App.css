@@ -1,5 +1,5 @@
-Button.toggle-form-btn {
-    background-color: white;
+Button#toggle-form-btn {
+    background-color: rgb(255, 255, 255);
     color: rgb(116, 116, 116);
     width: 300px;
     height: 60px;
@@ -10,10 +10,10 @@ Button.toggle-form-btn {
     box-shadow: -5px 5px 10px -3px rgba(0, 0, 0, 0.5);
 }
 
-Button.toggle-form-btn:hover {
+Button#toggle-form-btn:hover {
     background-color: rgb(243, 243, 243);
     color: rgb(116, 116, 116);
     border: solid 2px rgb(116, 116, 116);
     box-shadow: -5px 5px 10px 0px rgba(0, 0, 0, 0.5);
-
 }
+

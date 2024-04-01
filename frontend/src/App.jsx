@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import "./App.css" 
+import "./App.css"
 
 import Header from './components/header/Header.jsx'
 import QuoteForm from './components/quote-form/QuoteForm.jsx'
@@ -17,9 +17,9 @@ export default function App() {
 	return (
 		<div className="App">
 			<Header />
-			<Button onClick={showForm} className='toggle-form-btn'>Submit a Quote</Button>
+			<Button onClick={showForm} id='toggle-form-btn'>Submit a Quote</Button>
 			<QuoteForm active={formActive} handleClose={closeForm} />
 			<PreviousQuotes />
-		</div>
+		</div >
 	)
 }
