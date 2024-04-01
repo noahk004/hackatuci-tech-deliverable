@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 
 import QuoteCard from './QuoteCard.jsx'
 import QuoteModal from './QuoteModal.jsx'
+import FilterDropdown from './FilterDropdown.jsx'
 
 import './PreviousQuotes.css'
 
@@ -26,6 +27,7 @@ export default function PreviousQuotes() {
     return (
         <div className='m-4'>
             <h2 className='display-6 mb-3'>Previous Quotes</h2>
+            <FilterDropdown />
             <div className='d-flex flex-wrap gap-3'>
                 {quoteData?.map((card, index) => (
                     <QuoteCard key={index} onClick={() => handleCardClick(card)} name={card.name} message={card.message} />
