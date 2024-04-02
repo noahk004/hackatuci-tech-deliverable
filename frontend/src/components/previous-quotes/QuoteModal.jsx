@@ -1,7 +1,7 @@
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
-export default function QuoteModal({ active, handleClose, name, message }) {
+export default function QuoteModal({ active, handleClose, name, message, time }) {
     return (
         <Modal show={active}>
             <Modal.Body>

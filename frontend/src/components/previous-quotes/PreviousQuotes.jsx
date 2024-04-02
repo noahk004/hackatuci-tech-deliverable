@@ -30,7 +30,7 @@ export default function PreviousQuotes() {
             <FilterDropdown />
             <div className='d-flex flex-wrap gap-3'>
                 {quoteData?.map((card, index) => (
-                    <QuoteCard key={index} onClick={() => handleCardClick(card)} name={card.name} message={card.message} />
+                    <QuoteCard key={index} onClick={() => handleCardClick(card)} name={card.name} message={card.message} time={card.time} />
                 ))}
             </div>
             <QuoteModal active={showQuote} handleClose={() => setShowQuote(false)}

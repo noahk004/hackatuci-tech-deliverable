@@ -1,10 +1,16 @@
-.quote-card {
+#quote-card {
     padding: 15px;
-    width: 20rem;
     transition: .2s ease-out;
 }
 
-.quote-card:hover {
+#quote-card:hover {
     transform: scale(1.05);
     cursor: pointer;
+}
+
+#quote-card-text {
+    width: 25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
