@@ -3,39 +3,57 @@ import { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
+import Alert from 'react-bootstrap/Alert'
 
 import './QuoteForm.css'
 
+function ErrorAlert({ active, setActive }) {
+	return (
+		<div>
+			{active && <Alert variant='danger' onClose={() => setActive(false)} dismissible>
+				You must enter both a name and a message.
+			</Alert>}
+		</div>
+	)
+}
+
 export default function QuoteForm({ active, handleClose }) {
-	
+
 	const [name, setName] = useState('')
 	const [message, setMessage] = useState('')
+
+	const [showValidationError, setShowValidationError] = useState(false)
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
 
-		// First, post the data to the database.
-		const formData = new URLSearchParams();
-		formData.append('name', name)
-		formData.append('message', message)
+		if (name == '' || message == '') {
+			setShowValidationError(true)
+		} else {
+			// First, post the data to the database.
+			const formData = new URLSearchParams();
+			formData.append('name', name)
+			formData.append('message', message)
 
-		fetch('http://localhost:8000/quote', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			body: formData
-		}).then(res => {
-			res.json()
-		}).catch(error => {
-			console.error(error)
-		});
+			fetch('http://localhost:8000/quote', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				body: formData
+			}).then(res => {
+				res.json()
+			}).catch(error => {
+				console.error(error)
+			});
 
-		console.log(name, message)
+			setName('');
+			setMessage('');
+			handleClose();
 
-		setName('');
-		setMessage('');
-		handleClose();
+			location.reload();    // page refresh to show new data
+		}
+
 	}
 
 	return (
@@ -45,6 +63,7 @@ export default function QuoteForm({ active, handleClose }) {
 					<Modal.Title>Submit a Quote!</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
+					<ErrorAlert active={showValidationError} setActive={setShowValidationError}/>
 					<Form>
 						<Form.Group>
 							<Form.Label>Name:</Form.Label>
