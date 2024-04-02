@@ -34,7 +34,7 @@ export default function PreviousQuotes() {
                 ))}
             </div>
             <QuoteModal active={showQuote} handleClose={() => setShowQuote(false)}
-                name={selectedQuote?.name} message={selectedQuote?.message} />
+                name={selectedQuote?.name} message={selectedQuote?.message} time={selectedQuote?.time} />
         </div>
     )
 }

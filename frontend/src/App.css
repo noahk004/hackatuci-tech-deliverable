@@ -3,7 +3,7 @@ Button#toggle-form-btn {
     color: rgb(116, 116, 116);
     width: 300px;
     height: 60px;
-    border: solid 2px rgb(116, 116, 116);
+    border: solid 3px rgb(116, 116, 116);
     border-radius: 30px;
     font-size: 1.5em;
     margin-left: 30px;
@@ -13,7 +13,7 @@ Button#toggle-form-btn {
 Button#toggle-form-btn:hover {
     background-color: rgb(243, 243, 243);
     color: rgb(116, 116, 116);
-    border: solid 2px rgb(116, 116, 116);
+    border: solid 3px rgb(116, 116, 116);
     box-shadow: -5px 5px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
