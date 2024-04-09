@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 
+import Alert from 'react-bootstrap/Alert'
+
 import QuoteCard from './QuoteCard.jsx'
 import QuoteModal from './QuoteModal.jsx'
 import FilterDropdown from './FilterDropdown.jsx'
@@ -12,6 +14,8 @@ export default function PreviousQuotes() {
 
     const [selectedQuote, setSelectedQuote] = useState(null);
     const [showQuote, setShowQuote] = useState(false);
+
+    const [getQuotesError, setGetQuotesError] = useState(false);
 
     const filters = {
         ALL: 0,
@@ -52,11 +56,12 @@ export default function PreviousQuotes() {
         fetch('http://localhost:8000/allquotes')
             .then(res => res.json())
             .then(json => {setQuoteData(json.sort().reverse()); console.log(json)})
-            .catch(error => console.log(error))
+            .catch(() => setGetQuotesError(true))
     }, [])
 
     return (
         <div className='m-4'>
+            <ErrorAlert active={getQuotesError} setActive={setGetQuotesError} message={'Something went wrong when connecting to the server.'}/>
             <h2 className='display-6 mb-3'>Previous Quotes</h2>
             <FilterDropdown changeFilter={changeFilter}/>
             <div className='d-flex flex-wrap gap-3'>
@@ -68,4 +73,14 @@ export default function PreviousQuotes() {
                 name={selectedQuote?.name} message={selectedQuote?.message} time={selectedQuote?.time} />
         </div>
     )
+}
+
+function ErrorAlert({ active, setActive, message }) {
+	return (
+		<div>
+			{active && <Alert variant='danger' onClose={() => setActive(false)} dismissible>
+				{message}
+			</Alert>}
+		</div>
+	)
 }

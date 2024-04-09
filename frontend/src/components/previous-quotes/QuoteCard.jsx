@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import Card from 'react-bootstrap/Card'
 
 export default function QuoteCard({ onClick, name, message, time }) {

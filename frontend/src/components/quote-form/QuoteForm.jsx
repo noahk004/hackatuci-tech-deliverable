@@ -7,11 +7,11 @@ import Alert from 'react-bootstrap/Alert'
 
 import './QuoteForm.css'
 
-function ErrorAlert({ active, setActive }) {
+function ErrorAlert({ active, setActive, message }) {
 	return (
 		<div>
 			{active && <Alert variant='danger' onClose={() => setActive(false)} dismissible>
-				You must enter both a name and a message.
+				{message}
 			</Alert>}
 		</div>
 	)
@@ -43,8 +43,8 @@ export default function QuoteForm({ active, handleClose }) {
 				body: formData
 			}).then(res => {
 				res.json()
-			}).catch(error => {
-				console.error(error)
+			}).catch(() => {
+				console.error('somethign went wrong')
 			});
 
 			setName('');
@@ -63,7 +63,7 @@ export default function QuoteForm({ active, handleClose }) {
 					<Modal.Title>Submit a Quote!</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<ErrorAlert active={showValidationError} setActive={setShowValidationError}/>
+					<ErrorAlert active={showValidationError} setActive={setShowValidationError} message={'Please enter a name and a message.'}/>
 					<Form>
 						<Form.Group>
 							<Form.Label>Name:</Form.Label>
