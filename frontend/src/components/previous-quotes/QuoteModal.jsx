@@ -7,7 +7,8 @@ export default function QuoteModal({ active, handleClose, name, message, time })
     const date = new Date(time)
     const monthNames = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
 
-    const formattedTime = `${monthNames[date.getMonth()]}. ${date.getDate()}, ${date.getFullYear()} - ${date.toLocaleTimeString('en-US')}`
+    let formattedTime = `${monthNames[date.getMonth()]}. ${date.getDate()}, ${date.getFullYear()}. ${date.toLocaleTimeString('en-US')}`
+    formattedTime = formattedTime.substring(0, formattedTime.length-6) + formattedTime.substring(formattedTime.length-3, formattedTime.length)
 
     return (
         <Modal show={active}>

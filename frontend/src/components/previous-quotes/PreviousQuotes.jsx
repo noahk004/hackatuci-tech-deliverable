@@ -60,7 +60,7 @@ export default function PreviousQuotes() {
     }, [])
 
     return (
-        <div className='m-4'>
+        <div className='m-5'>
             <ErrorAlert active={getQuotesError} setActive={setGetQuotesError} message={'Something went wrong when connecting to the server.'}/>
             <h2 className='display-6 mb-3'>Previous Quotes</h2>
             <FilterDropdown changeFilter={changeFilter}/>
